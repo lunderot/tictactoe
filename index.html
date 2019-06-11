@@ -1,12 +1,145 @@
+</html>
+<!DOCTYPE html>
 <html>
 
 <head>
+	<meta charset="UTF-8">
+	<title>3D Tic Tac Toe!</title>
 	<link rel="stylesheet" type="text/css" href="./index.css">
+	<script src="./index.js"></script>
 </head>
 
 <body>
-	<script src="./index.js"></script>
-	Hello world!
+	<audio id="place" src="assets/sound/place.wav" preload="auto"></audio>
+	<audio id="error" src="assets/sound/error.wav" preload="auto"></audio>
+	<audio id="win" src="assets/sound/win.wav" preload="auto"></audio>
+	<audio id="lose" src="assets/sound/lose.wav" preload="auto"></audio>
+	<audio id="score" src="assets/sound/score.wav" preload="auto"></audio>
+	<audio id="enemy_score" src="assets/sound/enemy_score.wav" preload="auto"></audio>
+
+	<div id="wrap">
+		<form id="login">
+			Nickname: <input size="35" id="nickname" autofocus="autofocus" autocomplete="off"></input>
+			<input type="submit" value="Send"></input>
+		</form>
+		<div id="playfield">
+			<div class="layer one">
+				<table class="grid">
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="layer two">
+				<table class="grid">
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="layer three">
+				<table class="grid">
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+						<td>
+							<div class="button">&nbsp;</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<div class="score circle">0</div>
+				<div class="score cross">0</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
