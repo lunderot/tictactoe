@@ -18,10 +18,10 @@
 	<audio id="enemy_score" src="assets/sound/enemy_score.wav" preload="auto"></audio>
 
 	<div id="wrap">
-		<form id="login">
-			Nickname: <input size="35" id="nickname" autofocus="autofocus" autocomplete="off"></input>
-			<input type="submit" value="Send"></input>
-		</form>
+		<div>
+			<input id="share-link" size="100"></input>
+			<a id="share-link-click" target="_blank" rel="noopener noreferrer" href="#">Click to open!</a>
+		</div>
 		<div id="playfield">
 			<div class="layer one">
 				<table class="grid">
@@ -134,9 +134,9 @@
 					</tr>
 				</table>
 			</div>
-			<div>
-				<div class="score circle">0</div>
-				<div class="score cross">0</div>
+			<div id="score-container">
+				<div class="circle">0</div>
+				<div class="cross">0</div>
 			</div>
 		</div>
 	</div>

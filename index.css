@@ -2,42 +2,23 @@ body {
 	background: rgb(0, 153, 0);
 }
 #wrap {
-	width: 800px;
+	width: 50vw;
+	height: 100wh;
 	margin-left: auto;
 	margin-right: auto;
 	overflow: hidden;
 }
-#chatfield {
-	float: left;
-	/*display: none;*/
-}
-#chat {
-	width: 400px;
-	height: 500px;
-	overflow-y: scroll;
-	background: rgb(255, 255, 255);
-}
 #playfield {
-	height: auto;
 	padding-top: 20px;
-	/*display: none;*/
 }
-#login {
-	width: 400px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 .layer {
 	position: relative;
-	width: 300px;
-	height: 300px;
+	width: 28vh;
+	height: 28vh;
 	margin-top: -20px;
 	margin-left: auto;
 	margin-right: auto;
 	transform: rotate(-30deg) skewX(30deg) skewY(0deg) scaleY(0.87);
-	-ms-transform: rotate(-30deg) skewX(30deg) skewY(0deg) scaleY(0.87);
-	-webkit-transform: rotate(-30deg) skewX(30deg) skewY(0deg) scaleY(0.87);
 }
 .one {
 	z-index: 3;
@@ -69,11 +50,14 @@ body {
 .circle, .circle:hover {
 	background: rgb(255, 0, 0);
 }
-.score {
-	font-size: 40px;
-	width: 100px;
+#score-container {
+	display: flex;
+}
+
+#score-container > * {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 10vh;
 	color: rgb(255, 255, 255);
 	text-align: center;
-	float: right;
 	width: 50%;
 }

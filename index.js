@@ -8,7 +8,7 @@ if (window.location.hash) {
 		conn.on('data', function (data) {
 			console.log('Received', data);
 		});
-		conn.send('hi!');
+		setInterval(()=>conn.send('hi '+Math.random()), 1000);
 	});
 }
 else {
@@ -18,6 +18,13 @@ else {
 		});
 	});
 	peer.on('open', (id) => {
-		document.write('<a target="_blank" rel="noopener noreferrer" href="' + 'http://localhost:1234#' + id + '">Click to open!</a>');
+		document.querySelector('#share-link').value = window.location + '#' + id;
+		document.querySelector('#share-link-click').href = window.location + '#' + id;
 	});
+	peer.on('disconnected', () => {
+		console.log('disconnected')
+	});
+	peer.on('error', (error) => {
+		console.error(error);
+	})
 }
