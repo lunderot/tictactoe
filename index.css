@@ -45,10 +45,10 @@ body {
 	background: rgba(255, 255, 255, 0.9);
 }
 .x, .x:hover {
-	background: rgb(0, 0, 255);
+	background-image: url("./assets/image/cross.svg")
 }
 .o, .o:hover {
-	background: rgb(255, 0, 0);
+	background-image: url("./assets/image/circle.svg")
 }
 #score-container {
 	display: flex;
@@ -60,4 +60,11 @@ body {
 	color: rgb(255, 255, 255);
 	text-align: center;
 	width: 50%;
+}
+
+#score-container .x {
+	background-color: rgb(0, 0, 255);
+}
+#score-container .o {
+	background-color: rgb(255, 0, 0);
 }
