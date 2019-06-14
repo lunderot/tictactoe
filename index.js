@@ -1,5 +1,6 @@
 import Peer from 'peerjs';
 import * as master from './master.js'
+import * as shared from './shared.js'
 
 var peer = new Peer();
 
