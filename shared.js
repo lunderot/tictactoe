@@ -79,8 +79,8 @@ function getScore(player) {
 }
 
 function updateState(data) {
+	console.debug(data);
 	state = data;
-	console.log('State ' + data);
 	document.querySelectorAll('.button').forEach((element, index) => {
 		element.classList = 'button';
 		if (state.board[index] != '0')
@@ -113,13 +113,16 @@ function click(index) {
 			state.turn = getOppositePlayer();
 			updateState(state);
 			sendState();
+			document.getElementById('place').play();
 		}
 		else {
 			console.log('Invalid move');
+			document.getElementById('error').play();
 		}
 	}
 	else {
 		console.log('It\'s not your turn');
+		document.getElementById('error').play();
 	}
 }
 
