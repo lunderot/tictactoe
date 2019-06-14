@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url https://lunderot.se/tictactoe/",
+    "deploy": "rmdir /s /q dist\\ && npm run build && cd dist && git init && git add . && git commit -m \"build\" && git remote add origin https:\/\/github.com\/lunderot\/tictactoe.git && git push --force origin master:gh-pages"
   },
   "author": "lunderot",
   "dependencies": {
-    "peerjs": "^1.0.0",
-    "simple-peer": "^9.3.0",
-    "uuid": "^3.3.2"
+    "peerjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10"
   }
 }
