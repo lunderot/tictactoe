@@ -3,18 +3,13 @@ import * as shared from './shared'
 let state = {
 	request: 'state',
 	turn: 'master',
-	board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'x']
+	board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
 };
 
-function receive(conn, data) {
-	if (data.request == 'state') {
-		conn.send(JSON.stringify(state));
-	}
-}
-
 function init(conn) {
+	shared.init('master', conn);
 	shared.updateState(state);
-	shared.init('master');
+	shared.sendState();
 }
 
-export { receive, init };
+export { init };
