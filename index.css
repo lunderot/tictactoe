@@ -44,10 +44,10 @@ body {
 .button:hover {
 	background: rgba(255, 255, 255, 0.9);
 }
-.cross, .cross:hover {
+.x, .x:hover {
 	background: rgb(0, 0, 255);
 }
-.circle, .circle:hover {
+.o, .o:hover {
 	background: rgb(255, 0, 0);
 }
 #score-container {
