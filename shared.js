@@ -1,3 +1,6 @@
+import { stat } from "fs";
+import { allSettled } from "q";
+
 let state = {};
 let me = '';
 let conn = null;
@@ -60,6 +63,17 @@ let combos = [
 	0b000000100000010000001000000,
 ];
 
+function isBoardFull() {
+	const fullBoard = 0b111111111111111111111111111;
+	let markers =
+		state.board.join()
+			.replace(/,/g, '')
+			.replace(/x/g, '1')
+			.replace(/o/g, '1');
+	let packed = parseInt(markers, 2);
+	return (packed & fullBoard) == fullBoard;
+}
+
 function getScore(player) {
 	let score = 0;
 	let marker = getCharFromPlayer(player);
@@ -67,7 +81,7 @@ function getScore(player) {
 		state.board.join()
 			.replace(/,/g, '')
 			.replace(/x/g, marker == 'x' ? '1' : '0')
-			.replace(/o/g, marker == 'x' ? '0' : '1')
+			.replace(/o/g, marker == 'x' ? '0' : '1');
 
 	let packed = parseInt(markers, 2);
 	combos.forEach((combo) => {
@@ -76,6 +90,33 @@ function getScore(player) {
 		}
 	});
 	return score;
+}
+
+function checkGameOver() {
+	if(isBoardFull()) {
+		let myScore = getScore(me);
+		let enemyScore = getScore(getOppositePlayer(me));
+		if(myScore > enemyScore) {
+			console.log('You win with a score of ' + myScore.toString() + '!');
+			document.getElementById('win').play();
+		}
+		else {
+			console.log('You lose!');
+			document.getElementById('lose').play();
+		}
+		if(me == 'master')
+			setTimeout(reset, 4000);
+	}
+}
+
+function reset() {
+	console.log('resetting');
+	const initialState = {
+		turn: 'master',
+		board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+	};
+	updateState(initialState);
+	sendState();
 }
 
 function updateState(data) {
@@ -88,6 +129,8 @@ function updateState(data) {
 	});
 	document.querySelector('#score-container .x').innerHTML = getScore('master').toString();
 	document.querySelector('#score-container .o').innerHTML = getScore('slave').toString();
+
+	checkGameOver();
 }
 
 function sendState() {
@@ -140,4 +183,4 @@ function receive(conn, data) {
 	updateState(data);
 }
 
-export { updateState, init, receive, sendState }
+export { updateState, init, receive, sendState, reset }

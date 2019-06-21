@@ -52,15 +52,20 @@ body {
 	background: rgba(255, 255, 255, 0.9);
 }
 
-.x, .x:hover, .o, .o:hover {
+.button.x,
+.button.x:hover,
+.button.o,
+.button.o:hover {
 	animation: jump .5s;
 	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.x, .x:hover {
+.button.x,
+.button.x:hover {
 	background-image: url("./assets/image/cross.svg");
 }
-.o, .o:hover {
+.button.o,
+.button.o:hover {
 	background-image: url("./assets/image/circle.svg");
 }
 
