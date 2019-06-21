@@ -1,6 +1,3 @@
-import { stat } from "fs";
-import { allSettled } from "q";
-
 let state = {};
 let me = '';
 let conn = null;
@@ -110,7 +107,6 @@ function checkGameOver() {
 }
 
 function reset() {
-	console.log('resetting');
 	const initialState = {
 		turn: 'master',
 		board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
@@ -183,4 +179,4 @@ function receive(conn, data) {
 	updateState(data);
 }
 
-export { updateState, init, receive, sendState, reset }
+export { init, receive, reset }

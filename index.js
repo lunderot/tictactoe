@@ -1,5 +1,4 @@
 import Peer from 'peerjs';
-import * as master from './master.js'
 import * as shared from './shared.js'
 
 var peer = new Peer();
@@ -16,7 +15,8 @@ if (window.location.hash) {
 }
 else {
 	peer.on('connection', conn => {
-		master.init(conn);
+		shared.init('master', conn);
+		shared.reset();
 		conn.on('data', data => {
 			shared.receive(conn, JSON.parse(data));
 		});
