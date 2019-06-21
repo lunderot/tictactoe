@@ -51,12 +51,43 @@ body {
 .button:hover {
 	background: rgba(255, 255, 255, 0.9);
 }
+
+.x, .x:hover, .o, .o:hover {
+	animation: jump .5s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .x, .x:hover {
-	background-image: url("./assets/image/cross.svg")
+	background-image: url("./assets/image/cross.svg");
 }
 .o, .o:hover {
-	background-image: url("./assets/image/circle.svg")
+	background-image: url("./assets/image/circle.svg");
 }
+
+@keyframes jump {
+	0%{
+	  transform: translate(0,0);
+	}
+	4%{
+	  transform: translate(0,0);
+	}
+	40%{
+	  transform: translate(-3vh,3vh);
+	}
+	50%{
+	  transform: translate(0,0);
+	}
+	60%{
+	  transform: translate(-1.5vh,1.5vh);
+	}
+	80%{
+	  transform: translate(0,0);
+	}
+	100%{
+	  transform: translate(0,0);
+	}
+  }
+
 #score-container {
 	display: flex;
 	justify-content: space-evenly;
