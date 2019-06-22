@@ -1,0 +1,14 @@
+Enemy place sound
+Score can be equal on win state -> both players lose
+Tiles are in wrong z-order (visible when bounce animation is playing)
+Thumbnail icon
+Randomize starting player
+Player turn indicator
+Player feedback text (it's not you turn, invalid move)
+Spacing betweed buttons is bigger when window is scaled down
+Handle when a player disconnects
+
+Intro screen
+	How to play
+	QR code/link to paste
+
