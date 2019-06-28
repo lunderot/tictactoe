@@ -15,10 +15,12 @@ if (window.location.hash) {
 }
 else {
 	peer.on('connection', conn => {
-		shared.init('master', conn);
-		shared.reset();
 		conn.on('data', data => {
 			shared.receive(conn, JSON.parse(data));
+		});
+		conn.on('open', () => {
+			shared.init('master', conn);
+			shared.reset();
 		});
 	});
 	peer.on('open', id => {

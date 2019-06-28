@@ -89,35 +89,17 @@ function getScore(player) {
 	return score;
 }
 
-function checkGameOver() {
-	if(isBoardFull()) {
-		let myScore = getScore(me);
-		let enemyScore = getScore(getOppositePlayer(me));
-		if(myScore > enemyScore) {
-			console.log('You win with a score of ' + myScore.toString() + '!');
-			document.getElementById('win').play();
-		}
-		else {
-			console.log('You lose!');
-			document.getElementById('lose').play();
-		}
-		if(me == 'master')
-			setTimeout(reset, 4000);
-	}
-}
-
 function reset() {
-	const initialState = {
-		turn: 'master',
-		board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+	console.log('resetting');
+	state = {
+		mode: 'reset',
+		turn: Math.random() >= 0.5 ? 'master' : 'slave',
+		board: ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
 	};
-	updateState(initialState);
 	sendState();
 }
 
-function updateState(data) {
-	console.debug(data);
-	state = data;
+function updateBoardAndScore() {
 	document.querySelectorAll('.button').forEach((element, index) => {
 		element.classList = 'button';
 		if (state.board[index] != '0')
@@ -125,12 +107,53 @@ function updateState(data) {
 	});
 	document.querySelector('#score-container .x').innerHTML = getScore('master').toString();
 	document.querySelector('#score-container .o').innerHTML = getScore('slave').toString();
+}
 
-	checkGameOver();
+function updateState(data) {
+	state = data;
+	console.debug(state);
+	updateBoardAndScore();
+	switch (state.mode) {
+		case 'reset':
+			{
+				//Do animation for choosing player that starts
+				console.log('Doing animation');
+				setTimeout(() => {state.mode = 'game'}, 3000);
+				break;
+			}
+		case 'game':
+			{
+				if (isBoardFull())
+				{
+					state.mode = 'gameover';
+					updateState(state);
+				}
+				break;
+			}
+		case 'gameover':
+			{
+				let myScore = getScore(me);
+				let enemyScore = getScore(getOppositePlayer(me));
+				if (myScore > enemyScore) {
+					console.log('You win with a score of ' + myScore.toString() + '!');
+					document.getElementById('win').play();
+				}
+				else {
+					console.log('You lose!');
+					document.getElementById('lose').play();
+				}
+				if (me == 'master')
+					setTimeout(reset, 4000);
+				break;
+			}
+		default:
+			break;
+	}
 }
 
 function sendState() {
 	conn.send(JSON.stringify(state));
+	updateState(state);
 }
 
 function isValidMove(move) {
@@ -146,22 +169,26 @@ function getCharFromPlayer(player) {
 }
 
 function click(index) {
-	if (me == state.turn) {
-		if (isValidMove(index)) {
-			state.board[index] = getCharFromPlayer(me);
-			state.turn = getOppositePlayer();
-			updateState(state);
-			sendState();
-			document.getElementById('place').play();
+	if (state.mode == 'game') {
+		if (me == state.turn) {
+			if (isValidMove(index)) {
+				state.board[index] = getCharFromPlayer(me);
+				state.turn = getOppositePlayer();
+				sendState();
+				document.getElementById('place').play();
+			}
+			else {
+				console.log('Invalid move');
+				document.getElementById('error').play();
+			}
 		}
 		else {
-			console.log('Invalid move');
+			console.log('It\'s not your turn');
 			document.getElementById('error').play();
 		}
 	}
 	else {
-		console.log('It\'s not your turn');
-		document.getElementById('error').play();
+		console.log('You are not in a game', state);
 	}
 }
 
