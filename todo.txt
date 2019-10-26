@@ -4,8 +4,8 @@ Thumbnail icon
 Player turn indicator
 Player feedback text (it's not you turn, invalid move)
 Spacing betweed buttons is bigger when window is scaled down
-Handle when a player disconnects
 
+- Handle when a player disconnects
 - Score can be equal on win state -> both players lose
 - Randomize starting player
 

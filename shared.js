@@ -118,13 +118,12 @@ function updateState(data) {
 			{
 				//Do animation for choosing player that starts
 				console.log('Doing animation');
-				setTimeout(() => {state.mode = 'game'}, 3000);
+				setTimeout(() => { state.mode = 'game' }, 3000);
 				break;
 			}
 		case 'game':
 			{
-				if (isBoardFull())
-				{
+				if (isBoardFull()) {
 					state.mode = 'gameover';
 					updateState(state);
 				}
@@ -138,7 +137,7 @@ function updateState(data) {
 					console.log('You win with a score of ' + myScore.toString() + '!');
 					document.getElementById('win').play();
 				}
-				else if (myScore < enemyScore){
+				else if (myScore < enemyScore) {
 					console.log('You lose!');
 					document.getElementById('lose').play();
 				}
@@ -195,14 +194,17 @@ function click(index) {
 	}
 }
 
-function init(player, connection) {
-	me = player;
-	conn = connection;
+function init() {
 	document.querySelectorAll('.button').forEach((element, index) => {
 		element.addEventListener('click', () => {
 			click(index);
 		})
 	})
+}
+
+function connect(player, connection) {
+	me = player;
+	conn = connection;
 	document.getElementById('intro').style.visibility = 'hidden';
 }
 
@@ -210,4 +212,8 @@ function receive(conn, data) {
 	updateState(data);
 }
 
-export { init, receive, reset }
+function close() {
+	document.getElementById('intro').style.visibility = 'visible';
+}
+
+export { init, connect, receive, reset, close }
