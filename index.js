@@ -1,7 +1,7 @@
 import Peer from 'peerjs';
 import * as shared from './shared.js'
 
-var peer = new Peer();
+var peer = new Peer({ debug: 3, config: { iceServers: [{ 'urls': 'stun:stun.ekiga.net' }], sdpSemantics: 'unified-plan' } });
 
 if (window.location.hash) {
 	console.log('connecting to ' + window.location.hash.substring(1));

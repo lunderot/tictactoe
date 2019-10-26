@@ -200,6 +200,7 @@ function init(player, connection) {
 			click(index);
 		})
 	})
+	document.getElementById('intro').style.visibility = 'hidden';
 }
 
 function receive(conn, data) {

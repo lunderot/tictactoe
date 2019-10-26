@@ -15,11 +15,17 @@
 	<audio id="win" src="assets/sound/win.ogg" preload="auto"></audio>
 	<audio id="lose" src="assets/sound/lose.ogg" preload="auto"></audio>
 
-	<div id="wrap">
-		<div style="position: absolute; top: 0; left: 0;">
-			<input id="share-link" ></input>
+	<div class="modal-window" id="intro">
+		<div>
+			<p>Send the link below to your opponent to begin playing!</p>
+			<input id="share-link"></input>
+			<button id="share-link-copy"
+				onclick="document.getElementById('share-link').select();document.execCommand('copy');">Copy
+				link</button>
 			<a id="share-link-click" target="_blank" rel="noopener noreferrer" href="#">Click to open!</a>
 		</div>
+	</div>
+	<div id="wrap">
 		<div id="playfield">
 			<div class="layer one">
 				<table class="grid">
