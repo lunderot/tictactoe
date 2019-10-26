@@ -132,15 +132,18 @@ function updateState(data) {
 			}
 		case 'gameover':
 			{
-				let myScore = getScore(me);
-				let enemyScore = getScore(getOppositePlayer(me));
+				const myScore = getScore(me);
+				const enemyScore = getScore(getOppositePlayer(me));
 				if (myScore > enemyScore) {
 					console.log('You win with a score of ' + myScore.toString() + '!');
 					document.getElementById('win').play();
 				}
-				else {
+				else if (myScore < enemyScore){
 					console.log('You lose!');
 					document.getElementById('lose').play();
+				}
+				else {
+					console.log('It\'s a tie!')
 				}
 				if (me == 'master')
 					setTimeout(reset, 4000);
