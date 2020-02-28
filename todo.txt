@@ -1,11 +1,9 @@
 Enemy place sound
 Thumbnail icon
 Player feedback text (it's not you turn, invalid move)
-
-
 Tiles are in wrong z-order (visible when bounce animation is playing)
-Spacing betweed buttons is bigger when window is scaled down
 
+- Spacing betweed buttons is bigger when window is scaled down
 - Player turn indicator
 - Handle when a player disconnects
 - Score can be equal on win state -> both players lose
