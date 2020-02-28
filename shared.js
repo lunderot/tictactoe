@@ -105,8 +105,9 @@ function updateBoardAndScore() {
 		if (state.board[index] != '0')
 			element.classList.add(state.board[index]);
 	});
-	document.querySelector('#score-container .x').innerHTML = getScore('master').toString();
-	document.querySelector('#score-container .o').innerHTML = getScore('slave').toString();
+	document.querySelector('#score-container > .x').innerHTML = getScore('master').toString();
+	document.querySelector('#score-container > .o').innerHTML = getScore('slave').toString();
+	document.querySelector('#indicator > div').className = getCharFromPlayer(state.turn);
 }
 
 function updateState(data) {
