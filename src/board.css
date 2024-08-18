@@ -1,0 +1,29 @@
+#board {
+    margin: 25vh auto 0 auto;
+    max-width: fit-content;
+    height: 100vh;
+}
+.plane {
+    display: grid;
+    gap: 1vh;
+    grid-template-columns: repeat(3, 1fr);
+    aspect-ratio: 1;
+    height: calc(100% / 3);
+    margin-top: -35%;
+    transform: scale(1, .5) rotate(45deg);
+}
+.tile {
+    aspect-ratio: 1;
+    transition: background-color 200ms linear;
+    background: rgba(255, 255, 255, 0.5);
+    &:hover {
+        transition: background-color 200ms linear;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    &.x {
+        background-image: url("./assets/cross.svg");
+    }
+    &.o {
+        background-image: url("./assets/circle.svg");
+    }
+}
