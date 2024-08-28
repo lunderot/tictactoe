@@ -1,29 +1,33 @@
 import { render } from 'preact';
 import { signal, computed } from '@preact/signals'
-import { combos } from './combos.jsx'
+import { joinRoom } from 'trystero'
 
-import './style.css';
+import { tilesToScore } from './combos'
 import { Board } from './board';
+import './style.css';
 
 const tiles = signal(Array(27).fill(' '));
 
-function getScore(tiles, marker) {
-	const scoremap = parseInt(tiles.map(c => c == marker ? '1' : '0').join(''), 2);
-	return combos.reduce(
-		(prev, combo) => (prev + Number((scoremap & combo) == combo)
-		), 0
-	);
-}
-
 const score = computed(() => ({
-	x: getScore(tiles.value, 'x'),
-	o: getScore(tiles.value, 'o'),
+	x: tilesToScore(tiles.value, 'x'),
+	o: tilesToScore(tiles.value, 'o'),
 }));
 
-const handlePlace = (index) => {
+const trysteroConfig = {appId: 'lunderot-tictactoe'}
+const room = joinRoom(trysteroConfig, 'testing');
+const [sendPlace, getPlace] = room.makeAction('place');
+getPlace((index, peer) => {
+	console.log(`Peer sent ${index}`)
+	handlePlace(index, 'o');
+});
+room.onPeerJoin(() => console.log('Peer joined'));
+
+const handlePlace = (index, marker = 'x') => {
 	const t = [...tiles.value];
-	t[parseInt(index)] = 'x';
+	t[parseInt(index)] = marker;
 	tiles.value = t;
+	if(marker == 'x')
+		sendPlace(index);
 }
 
 export function App() {

@@ -55,3 +55,11 @@ export const combos = [
 	0b000000001000010000100000000,
 	0b000000100000010000001000000,
 ];
+
+export function tilesToScore(tiles, marker) {
+	const scoremap = parseInt(tiles.map(c => c == marker ? '1' : '0').join(''), 2);
+	return combos.reduce(
+		(prev, combo) => (prev + Number((scoremap & combo) == combo)
+		), 0
+	);
+}
