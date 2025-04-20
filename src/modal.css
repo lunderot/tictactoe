@@ -1,0 +1,34 @@
+#bg {
+    display: block;
+    position: fixed;
+    inset: 0;
+    user-select: none;
+    background: rgb(0 0 0 / 50%);
+}
+
+#bg > div {
+    display: block;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    margin: auto;
+    border-width: initial;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    padding: 1em;
+    background-color: Canvas;
+    color: CanvasText;
+    width: -moz-fit-content;
+    height: -moz-fit-content;
+    position: fixed;
+    overflow: auto;
+    visibility: visible;
+    inset-block-start: 0;
+    inset-block-end: 0;
+    max-width: calc(100% - 6px - 2em);
+    max-height: calc(100% - 6px - 2em);
+
+    border: 0px;
+    width: 90vw;
+    height: 50vh;
+}

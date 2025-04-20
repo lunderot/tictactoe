@@ -1,0 +1,4 @@
+.roomDialog {
+    display: flex;
+    flex-direction: column;
+}
