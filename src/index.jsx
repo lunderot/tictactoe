@@ -46,7 +46,7 @@ export function App() {
 			<div>Score X: {score.value.x}</div>
 			<div>Score O: {score.value.o}</div>
 			<Board tiledata={tiles.value} onPlace={handlePlace} />
-			{gameState.value && <RoomDialog link={`${window.location.origin}#${roomId}`} />}
+			{gameState.value && <RoomDialog link={`${window.location.origin + window.location.pathname}#${roomId}`} />}
 		</>
 	);
 }
