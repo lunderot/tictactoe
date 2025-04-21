@@ -2,17 +2,12 @@ import { render } from 'preact';
 import { signal, computed } from '@preact/signals'
 import { joinRoom } from 'trystero'
 
-import { tilesToScore } from './combos'
 import { Board } from './board';
 import './style.css';
 import { RoomDialog } from './roomDialog';
+import { ScoreDisplay } from './scoreDisplay'
 
 const tiles = signal(Array(27).fill(' '));
-
-const score = computed(() => ({
-	x: tilesToScore(tiles.value, 'x'),
-	o: tilesToScore(tiles.value, 'o'),
-}));
 const gameState = signal(1);
 
 function getOrGenerateRoomId() {
@@ -43,9 +38,8 @@ const handlePlace = (index, marker = 'x') => {
 export function App() {
 	return (
 		<>
-			<div>Score X: {score.value.x}</div>
-			<div>Score O: {score.value.o}</div>
 			<Board tiledata={tiles.value} onPlace={handlePlace} />
+			<ScoreDisplay tiledata={tiles} />
 			{gameState.value && <RoomDialog link={`${window.location.origin + window.location.pathname}#${roomId}`} />}
 		</>
 	);

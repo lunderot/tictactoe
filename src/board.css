@@ -1,8 +1,19 @@
 #board {
-    margin: 25vh auto 0 auto;
+    margin: 12vh auto -42vh auto;
     max-width: fit-content;
-    height: 100vh;
+    height: 120vh;
+
+    & > :nth-child(1) {
+        z-index: 3;
+    }
+    & > :nth-child(2) {
+        z-index: 2;
+    }
+    & > :nth-child(3) {
+        z-index: 1;
+    }
 }
+
 .plane {
     display: grid;
     gap: 1vh;
@@ -11,18 +22,23 @@
     height: calc(100% / 3);
     margin-top: -35%;
     transform: scale(1, .5) rotate(45deg);
+    position: relative;
 }
+
 .tile {
     aspect-ratio: 1;
     transition: background-color 200ms linear;
     background: rgba(255, 255, 255, 0.5);
+
     &:hover {
         transition: background-color 200ms linear;
         background: rgba(255, 255, 255, 0.9);
     }
+
     &.x {
         background-image: url("./assets/cross.svg");
     }
+
     &.o {
         background-image: url("./assets/circle.svg");
     }
