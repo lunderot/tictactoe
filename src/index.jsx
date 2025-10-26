@@ -21,7 +21,7 @@ export function App() {
 
 	getPlace((index, peer) => {
 		console.log(`Peer sent ${index}`);
-		handlePlace(index, 'o');
+		handlePlace(index, false);
 	});
 	room.onPeerJoin(peerId => {
 		console.log('Peer joined');
@@ -32,9 +32,9 @@ export function App() {
 		dispatch({ type: 'leave', peerId: peerId });
 	});
 
-	const handlePlace = (index, marker = 'x') => {
-		dispatch({ type: 'place', index, marker });
-		if (marker == 'x')
+	const handlePlace = (index, isLocal = true) => {
+		dispatch({ type: 'place', index, marker: isLocal ? 'x' : 'o' });
+		if (isLocal)
 			sendPlace(index);
 	}
 
