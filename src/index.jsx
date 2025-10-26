@@ -1,46 +1,49 @@
 import { render } from 'preact';
-import { signal, computed } from '@preact/signals'
 import { joinRoom } from 'trystero'
 
-import { Board } from './board';
 import './style.css';
+import { Board } from './board';
 import { RoomDialog } from './roomDialog';
 import { ScoreDisplay } from './scoreDisplay'
-
-const tiles = signal(Array(27).fill(' '));
-const gameState = signal(1);
+import { useReducer } from 'preact/hooks';
+import { gameReducer, initialGame } from './gameState';
 
 function getOrGenerateRoomId() {
 	return window.location.hash.slice(1) || crypto.randomUUID();
 }
-
 const roomId = getOrGenerateRoomId();
 const trysteroConfig = { appId: 'lunderot-tictactoe' }
 const room = joinRoom(trysteroConfig, roomId);
 const [sendPlace, getPlace] = room.makeAction('place');
-getPlace((index, peer) => {
-	console.log(`Peer sent ${index}`)
-	handlePlace(index, 'o');
-});
-room.onPeerJoin(() => {
-	console.log('Peer joined')
-	gameState.value = 0;
-});
-
-const handlePlace = (index, marker = 'x') => {
-	const t = [...tiles.value];
-	t[parseInt(index)] = marker;
-	tiles.value = t;
-	if (marker == 'x')
-		sendPlace(index);
-}
 
 export function App() {
+	const [game, dispatch] = useReducer(gameReducer, initialGame);
+
+	getPlace((index, peer) => {
+		console.log(`Peer sent ${index}`);
+		handlePlace(index, 'o');
+	});
+	room.onPeerJoin(peerId => {
+		console.log('Peer joined');
+		dispatch({ type: 'join', peerId: peerId });
+	});
+	room.onPeerLeave(peerId => {
+		console.log('Peer left');
+		dispatch({ type: 'leave', peerId: peerId });
+	});
+
+	const handlePlace = (index, marker = 'x') => {
+		dispatch({ type: 'place', index, marker });
+		if (marker == 'x')
+			sendPlace(index);
+	}
+
 	return (
 		<>
-			<Board tiledata={tiles.value} onPlace={handlePlace} />
-			<ScoreDisplay tiledata={tiles} />
-			{gameState.value && <RoomDialog link={`${window.location.origin + window.location.pathname}#${roomId}`} />}
+			<div>{JSON.stringify(game)}</div>
+			<Board tiledata={game.board} onPlace={handlePlace} />
+			<ScoreDisplay tiledata={game.board} />
+			{game.state == 'lobby' && <RoomDialog link={`${window.location.origin + window.location.pathname}#${roomId}`} />}
 		</>
 	);
 }
