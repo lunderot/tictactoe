@@ -1,20 +1,25 @@
-const State = {
+export const State = {
     lobby: 'lobby',
+    pregame: 'pregame',
     ingame: 'ingame',
     postgame: 'postgame',
 };
 
-const Action = {
+export const Action = {
     join: 'join',
     leave: 'leave',
+    goIngame: 'goIngame',
     place: 'place',
     reset: 'reset',
+    seed: 'seed',
 };
 
 export const initialGame = {
     state: State.lobby,
     board: Array(27).fill(' '),
     enemyPeerId: null,
+    isLocalTurn: true,
+    seed: null,
 };
 
 function isValidMove(board, index) {
@@ -29,7 +34,7 @@ export function gameReducer(game, action) {
     switch (action.type) {
         case Action.join:
             if (game.state == State.lobby) {
-                game = { ...game, state: State.ingame, enemyPeerId: action.peerId };
+                game = { ...game, state: State.pregame, enemyPeerId: action.peerId };
             }
             break;
         case Action.leave:
@@ -44,8 +49,14 @@ export function gameReducer(game, action) {
                 game = { ...game, board: board, state: state };
             }
             break;
+        case Action.goIngame:
+            game = { ...game, state: State.ingame };
+            break;
         case Action.reset:
-            game = initialGame;
+            game = { ...initialGame, state: State.pregame };
+            break;
+        case Action.seed:
+            game = { ...game, isLocalTurn: action.isLocalTurn, seed: action.seed };
             break;
         default:
             break;

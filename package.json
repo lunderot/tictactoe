@@ -11,7 +11,7 @@
 	"dependencies": {
 		"@preact/signals": "^2.0.4",
 		"preact": "^10.22.1",
-		"trystero": "^0.21.3"
+		"trystero": "^0.25.3"
 	},
 	"devDependencies": {
 		"@preact/preset-vite": "^2.9.0",

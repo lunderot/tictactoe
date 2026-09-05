@@ -1,0 +1,42 @@
+.spinnerDialog {
+    display: flex;
+    flex-direction: column;
+
+    .wheel {
+        width: 500px;
+        height: 500px;
+        background: repeating-conic-gradient(red 0deg 36deg,
+                blue 36deg 72deg);
+        mask: radial-gradient(transparent 0 30%,
+                black 30% 70%,
+                transparent 70%);
+    }
+
+    .wheel.red {
+        animation: spin-red 5s ease 3s forwards;
+    }
+
+    .wheel.blue {
+        animation: spin-blue 5s ease 3s forwards;
+    }
+}
+
+@keyframes spin-blue {
+    50% {
+        filter: blur(20px);
+    }
+    to {
+        filter: blur(0);
+        transform: rotate(3618deg);
+    }
+}
+
+@keyframes spin-red {
+    50% {
+        filter: blur(20px);
+    }
+    to {
+        filter: blur(0);
+        transform: rotate(3654deg);
+    }
+}
