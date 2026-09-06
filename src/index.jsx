@@ -7,7 +7,7 @@ import { Board } from './board';
 import { RoomDialog } from './roomDialog';
 import { ScoreDisplay } from './scoreDisplay'
 import { useEffect, useReducer, useRef } from 'preact/hooks';
-import { gameReducer, initialGame, State, Action } from './gameState';
+import { gameReducer, initialGame, State, Action, isValidMove } from './gameState';
 import { SpinnerDialog } from './spinnerDialog';
 
 function getOrGenerateRoomId() {
@@ -53,7 +53,7 @@ export function App() {
 
 	useEffect(() => {
 		const placeAction = room.makeAction('place', {
-			onMessage: (index, { peerId }) => handlePlace(index, false)
+			onMessage: (index, { peerId }) => dispatch({ type: 'place', index, marker: 'o' })
 		});
 
 		const exchangeHash = room.makeAction('rnghash', {
@@ -127,16 +127,17 @@ export function App() {
 		return () => room.leave();
 	}, [room]);
 
-	const handlePlace = (index, isLocal = true) => {
-		dispatch({ type: 'place', index, marker: isLocal ? 'x' : 'o' });
-		if (isLocal)
+	const handlePlace = (index) => {
+		if (game.isLocalTurn && isValidMove(game.board, index)) {
 			actions.current.placeAction.send(index);
-	}
+			dispatch({ type: 'place', index, marker: 'x' });
+		}
+	};
 
 	useEffect(() => {
 		if (game.state == State.postgame) {
 			const timer = setTimeout(() => {
-				dispatch({ type: Action.reset });
+				dispatch({ type: Action.clear });
 			}, 3000);
 
 			return () => clearTimeout(timer);

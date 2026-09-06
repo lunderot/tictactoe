@@ -10,7 +10,7 @@ export const Action = {
     leave: 'leave',
     goIngame: 'goIngame',
     place: 'place',
-    reset: 'reset',
+    clear: 'clear',
     seed: 'seed',
 };
 
@@ -22,7 +22,7 @@ export const initialGame = {
     seed: null,
 };
 
-function isValidMove(board, index) {
+export function isValidMove(board, index) {
     return board[index] == ' ';
 }
 
@@ -43,17 +43,18 @@ export function gameReducer(game, action) {
             }
             break;
         case Action.place:
-            if (game.state == State.ingame && isValidMove(game.board, action.index)) {
+            if (game.state == State.ingame) {
                 const board = game.board.toSpliced(action.index, 1, action.marker);
                 const state = isFull(board) ? State.postgame : game.state;
-                game = { ...game, board: board, state: state };
+                const isLocalTurn = !game.isLocalTurn;
+                game = { ...game, board: board, state: state, isLocalTurn: isLocalTurn };
             }
             break;
         case Action.goIngame:
             game = { ...game, state: State.ingame };
             break;
-        case Action.reset:
-            game = { ...initialGame, state: State.pregame };
+        case Action.clear:
+            game = { ...game, state: State.pregame, board: initialGame.board };
             break;
         case Action.seed:
             game = { ...game, isLocalTurn: action.isLocalTurn, seed: action.seed };
