@@ -11,7 +11,9 @@ import { gameReducer, initialGame, State, Action, isValidMove } from './gameStat
 import { SpinnerDialog } from './spinnerDialog';
 
 function getOrGenerateRoomId() {
-	return window.location.hash.slice(1) || crypto.randomUUID();
+
+	const randomId = Math.random().toString(2).slice(2, 16).split('').map(a => a == '0' ? 'x' : 'o').join('');
+	return window.location.hash.slice(1) || randomId;
 }
 const roomId = getOrGenerateRoomId();
 const trysteroConfig = { appId: 'lunderot-tictactoe', relayConfig: { warnOnRelayFailure: false } };
