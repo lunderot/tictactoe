@@ -16,11 +16,9 @@
     border-style: solid;
     border-color: initial;
     border-image: initial;
-    padding: 1em;
+    padding: 2em;
     background-color: Canvas;
     color: CanvasText;
-    width: -moz-fit-content;
-    height: -moz-fit-content;
     position: fixed;
     overflow: auto;
     visibility: visible;
@@ -30,6 +28,8 @@
     max-height: calc(100% - 6px - 2em);
 
     border: 0px;
-    width: 90vw;
-    height: 50vh;
+    width: 90vh;
+    height: 45vh;
+
+    border-radius: 3em;    
 }
