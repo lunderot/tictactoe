@@ -11,7 +11,6 @@ import { gameReducer, initialGame, State, Action, isValidMove } from './gameStat
 import { SpinnerDialog } from './spinnerDialog';
 
 function getOrGenerateRoomId() {
-
 	const randomId = Math.random().toString(2).slice(2, 16).split('').map(a => a == '0' ? 'x' : 'o').join('');
 	return window.location.hash.slice(1) || randomId;
 }
@@ -158,7 +157,7 @@ export function App() {
 			<pre style="position:absolute">{JSON.stringify(game, null, 2)}</pre>
 
 			<Board tiledata={game.board} onPlace={handlePlace} />
-			<ScoreDisplay tiledata={game.board} />
+			<ScoreDisplay tiledata={game.board} isLocalTurn={game.isLocalTurn} isIngame={game.state == State.ingame} />
 
 
 			{game.state == State.pregame && <SpinnerDialog />}
