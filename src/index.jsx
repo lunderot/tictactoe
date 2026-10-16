@@ -160,7 +160,7 @@ export function App() {
 			<ScoreDisplay tiledata={game.board} isLocalTurn={game.isLocalTurn} isIngame={game.state == State.ingame} />
 
 
-			{game.state == State.pregame && <SpinnerDialog />}
+			{game.state == State.pregame && <SpinnerDialog isLocalTurn={game.isLocalTurn} />}
 			{game.state == State.lobby && <RoomDialog link={`${window.location.origin + window.location.pathname}#${roomId}`} />}
 		</>
 	);

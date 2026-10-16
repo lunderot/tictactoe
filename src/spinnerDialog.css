@@ -1,23 +1,44 @@
 .spinnerDialog {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    > div {
+        display: grid;
+        height: 100%;
+        aspect-ratio: 1;
+        align-items: center;
+    }
+
+    .container > div {
+        grid-row: 1;
+        grid-column: 1;
+        height: 100%;
+        aspect-ratio: 1;
+    }
 
     .wheel {
-        width: 500px;
-        height: 500px;
-        background: repeating-conic-gradient(red 0deg 36deg,
-                blue 36deg 72deg);
-        mask: radial-gradient(transparent 0 30%,
-                black 30% 70%,
-                transparent 70%);
+        clip-path: circle(50%);
+        background: repeating-conic-gradient(red 0deg 36deg, blue 36deg 72deg);
+        
+        &.red {
+            animation: spin-red 3s ease 3s forwards;
+        }
+        &.blue {
+            animation: spin-blue 3s ease 3s forwards;
+        }
     }
 
-    .wheel.red {
-        animation: spin-red 5s ease 3s forwards;
+    .pointer {
+        clip-path: polygon(50% 25%, 60% 50%, 40% 50%);
+        background: black;
     }
 
-    .wheel.blue {
-        animation: spin-blue 5s ease 3s forwards;
+    .center {
+        clip-path: circle(15%);
+        background: black;
     }
 }
 
@@ -25,6 +46,7 @@
     50% {
         filter: blur(20px);
     }
+
     to {
         filter: blur(0);
         transform: rotate(3618deg);
@@ -35,6 +57,7 @@
     50% {
         filter: blur(20px);
     }
+
     to {
         filter: blur(0);
         transform: rotate(3654deg);
